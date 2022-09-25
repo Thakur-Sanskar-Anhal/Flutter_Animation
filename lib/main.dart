@@ -12,13 +12,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double width = 200;
-  double height = 200;
+  double _width = 200;
+  double _height = 200;
+  Color _color = Color.fromARGB(213, 14, 173, 247);
 
   void updateState() {
     setState(() {
-      width = 400;
-      height = 400;
+      _width = 400;
+      _height = 400;
+      _color = Color.fromARGB(224, 53, 18, 255);
     });
   }
 
@@ -32,10 +34,11 @@ class _MyAppState extends State<MyApp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  width: width,
-                  height: height,
-                  color: const Color.fromARGB(200, 23, 255, 255),
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeInBack,
+                  width: _width,
+                  height: _height,
+                  color: _color,
                   child: Center(
                     child: Text(
                       'Animation',
