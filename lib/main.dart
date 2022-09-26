@@ -1,60 +1,41 @@
-import 'dart:ffi';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:vector_math/vector_math.dart' show radians;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() {
+void main(List<String> args) {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  double _width = 200;
-  double _height = 200;
-  Color _color = Color.fromARGB(213, 14, 173, 247);
-
-  void updateState() {
-    setState(() {
-      _width = 400;
-      _height = 400;
-      _color = Color.fromARGB(224, 53, 18, 255);
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Animation',
       home: Scaffold(
-        body: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1000),
-                  curve: Curves.easeInBack,
-                  width: _width,
-                  height: _height,
-                  color: _color,
-                  child: Center(
-                    child: Text(
-                      'Animation',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    updateState();
-                  },
-                  child: const Text('Animate'),
-                )
-              ]),
-        ),
+        body: SizedBox.expand(child: RadialMenu()),
       ),
     );
+  }
+}
+
+class RadialMenu extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _RadialMenuState();
+}
+
+class _RadialMenuState extends State<RadialMenu>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(duration: Duration(microseconds: 900), vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return RadialMenu(controller: controller)
   }
 }
